@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DuckyMart_Empleado.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.RowSpan="2" BackgroundColor="#879b99" HorizontalOptions="Fill"/>
+        <StackLayout Grid.Row="0" Orientation="Horizontal">
+            <Image Margin="5,5,0,0" Source="whitepach.png" HorizontalOptions="Start"/>
+            <Label Text="Lista de Pedidos" TextColor="White" VerticalOptions="End" FontSize="30"></Label>
+        </StackLayout>
+
+        <!--Se elabora StackLayout para realizar la sección de busqueda de orden-->
+        <StackLayout Grid.Row="1" Orientation="Horizontal">
+            <!--Se elabora un label-->
+            <Label Margin="10,0,0,0" Text="Código:" TextColor="White" VerticalOptions="Center" FontSize="Large"></Label>
+
+            <!--Se elabora un edit dedicado a ingresar un código para busqueda de un pedido-->
+            <Editor x:Name="EDT_Codigo" Placeholder="000000" PlaceholderColor="#cfcece" HorizontalOptions="FillAndExpand" TextColor="White" Keyboard="Numeric"/>
+
+            <!--Se elabora botón dedicado a ejecutar la busqueda de un pedido-->
+            <Button Margin="0,5,10,10" Text="Buscar" VerticalOptions="Center" Clicked="Button_Clicked" BackgroundColor="#879b99" BorderColor="White" TextColor="White" BorderWidth="1"/>
+        </StackLayout>
+
+        <!--Seccion de ListView-->
+        <ListView Margin="10,0,10,0" Grid.Row="2" x:Name="ListaPedidos" HasUnevenRows="True" ItemTapped="ListaPedidos_ItemTapped" IsPullToRefreshEnabled="True" Refreshing="Refrescar">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="carrito.png" WidthRequest="100" HeightRequest="100"/>
+                            <StackLayout Orientation="Vertical">
+                                <Label x:Name="IdPedidoOrden" Text="{Binding IdPedido, StringFormat='{0}'}" IsVisible="False"/>
+                                <Label Text="{Binding CodPedido, StringFormat='CÓDIGO: {0}'}"/>
+                                <Label Text="{Binding Fecha, StringFormat='FECHA: {0}'}"/>
+                                <Label Text="{Binding Estatus, StringFormat='ESTATUS: {0}'}"/>
+                                <Label Text="{Binding PrecioTotal, StringFormat='TOTAL: {0}'}"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>
